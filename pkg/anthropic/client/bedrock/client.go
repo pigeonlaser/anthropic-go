@@ -16,19 +16,22 @@ import (
 const (
 	AnthropicVersion = "bedrock-2023-05-31"
 
-	BedrockModelClaudeOpus4_20250514    = "anthropic.claude-opus-4-20250514-v1:0"
-	BedrockModelClaudeSonnet4_20250514  = "anthropic.claude-sonnet-4-20250514-v1:0"
-	BedrockModelClaude37Sonnet          = "anthropic.claude-3-7-sonnet-20250219-v1:0"
-	BedrockModelClaude37Sonnet_20250219 = "anthropic.claude-3-7-sonnet-20250219-v1:0"
-	BedrockModelClaude35Sonnet          = "anthropic.claude-3-5-sonnet-20241022-v2:0"
-	BedrockModelClaude35Sonnet_20241022 = "anthropic.claude-3-5-sonnet-20241022-v2:0"
-	BedrockModelClaude35Sonnet_20240620 = "anthropic.claude-3-5-sonnet-20240620-v1:0"
-	BedrockModelClaude35Haiku           = "anthropic.claude-3-5-haiku-20241022-v1:0"
-	BedrockModelClaude35Haiku_20241022  = "anthropic.claude-3-5-haiku-20241022-v1:0"
-	BedrockModelClaude3Opus             = "anthropic.claude-3-opus-20240229-v1:0"
-	BedrockModelClaude3Sonnet           = "anthropic.claude-3-sonnet-20240229-v1:0"
-	BedrockModelClaude3Haiku            = "anthropic.claude-3-haiku-20240307-v1:0"
-	BedrockModelClaudeV2_1              = "anthropic.claude-v2:1"
+	BedrockModelClaudeSonnet4_5_20250929 = "anthropic.claude-sonnet-4-5-20250929-v1:0"
+	BedrockModelClaudeHaiku4_5_20251001  = "anthropic.claude-haiku-4-5-20251001-v1:0"
+	BedrockModelClaudeOpus4_1_20250805   = "anthropic.claude-opus-4-1-20250805-v1:0"
+	BedrockModelClaudeOpus4_20250514     = "anthropic.claude-opus-4-20250514-v1:0"
+	BedrockModelClaudeSonnet4_20250514   = "anthropic.claude-sonnet-4-20250514-v1:0"
+	BedrockModelClaude37Sonnet           = "anthropic.claude-3-7-sonnet-20250219-v1:0"
+	BedrockModelClaude37Sonnet_20250219  = "anthropic.claude-3-7-sonnet-20250219-v1:0"
+	BedrockModelClaude35Sonnet           = "anthropic.claude-3-5-sonnet-20241022-v2:0"
+	BedrockModelClaude35Sonnet_20241022  = "anthropic.claude-3-5-sonnet-20241022-v2:0"
+	BedrockModelClaude35Sonnet_20240620  = "anthropic.claude-3-5-sonnet-20240620-v1:0"
+	BedrockModelClaude35Haiku            = "anthropic.claude-3-5-haiku-20241022-v1:0"
+	BedrockModelClaude35Haiku_20241022   = "anthropic.claude-3-5-haiku-20241022-v1:0"
+	BedrockModelClaude3Opus              = "anthropic.claude-3-opus-20240229-v1:0"
+	BedrockModelClaude3Sonnet            = "anthropic.claude-3-sonnet-20240229-v1:0"
+	BedrockModelClaude3Haiku             = "anthropic.claude-3-haiku-20240307-v1:0"
+	BedrockModelClaudeV2_1               = "anthropic.claude-v2:1"
 
 	// Cross-region top-level region code
 	CRUS = "us"
@@ -97,6 +100,12 @@ func (c *Client) adaptModelForMessage(model anthropic.Model) (string, error) {
 	adaptedModel := ""
 
 	switch model {
+	case anthropic.ClaudeSonnet4_5_20250929:
+		adaptedModel = BedrockModelClaudeSonnet4_5_20250929
+	case anthropic.ClaudeHaiku4_5_20251001:
+		adaptedModel = BedrockModelClaudeHaiku4_5_20251001
+	case anthropic.ClaudeOpus4_1_20250805:
+		adaptedModel = BedrockModelClaudeOpus4_1_20250805
 	case anthropic.ClaudeOpus4_20250514:
 		adaptedModel = BedrockModelClaudeOpus4_20250514
 	case anthropic.ClaudeSonnet4_20250514:
