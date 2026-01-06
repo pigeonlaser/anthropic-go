@@ -94,7 +94,12 @@ const (
 
 func (m Model) IsImageCompatible() bool {
 	switch m {
-	case Claude3Haiku, Claude3Opus, Claude3Sonnet, Claude35Sonnet, Claude35Sonnet_20241022, Claude35Sonnet_20240620:
+	case Claude3Haiku, Claude3Opus, Claude3Sonnet,
+		Claude35Sonnet, Claude35Sonnet_20241022, Claude35Sonnet_20240620,
+		Claude35Haiku, Claude35Haiku_20241022,
+		Claude37Sonnet, Claude37Sonnet_20250219,
+		ClaudeOpus4_20250514, ClaudeSonnet4_20250514, ClaudeOpus4_1_20250805,
+		ClaudeOpus4_5_20251101, ClaudeSonnet4_5_20250929, ClaudeHaiku4_5_20251001:
 		return true
 	}
 	return false
