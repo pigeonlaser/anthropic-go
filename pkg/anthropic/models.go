@@ -5,6 +5,8 @@ type Model string
 
 // https://docs.anthropic.com/claude/docs/models-overview
 const (
+	ClaudeOpus4_5_20251101 Model = "claude-opus-4-5-20251101"
+
 	ClaudeSonnet4_5_20250929 = "claude-sonnet-4-5-20250929"
 
 	ClaudeHaiku4_5_20251001 = "claude-haiku-4-5-20251001"
@@ -100,7 +102,7 @@ func (m Model) IsImageCompatible() bool {
 
 func (m Model) IsMessageCompatible() bool {
 	switch m {
-	case Claude3Opus, Claude3Sonnet, Claude3Haiku, ClaudeV2_1, Claude35Sonnet, Claude35Sonnet_20241022, Claude35Sonnet_20240620, Claude35Haiku, Claude35Haiku_20241022, Claude37Sonnet, Claude37Sonnet_20250219, ClaudeSonnet4_20250514, ClaudeOpus4_20250514, ClaudeSonnet4_5_20250929, ClaudeHaiku4_5_20251001, ClaudeOpus4_1_20250805:
+	case Claude3Opus, Claude3Sonnet, Claude3Haiku, ClaudeV2_1, Claude35Sonnet, Claude35Sonnet_20241022, Claude35Sonnet_20240620, Claude35Haiku, Claude35Haiku_20241022, Claude37Sonnet, Claude37Sonnet_20250219, ClaudeSonnet4_20250514, ClaudeOpus4_20250514, ClaudeSonnet4_5_20250929, ClaudeHaiku4_5_20251001, ClaudeOpus4_1_20250805, ClaudeOpus4_5_20251101:
 		return true
 	}
 	return false
