@@ -54,6 +54,15 @@ func WithMetadata[T MessageRequest](metadata interface{}) GenericOption[T] {
 	}
 }
 
+func WithTools[T MessageRequest](tools []Tool) GenericOption[T] {
+	return func(r *T) {
+		switch v := any(r).(type) {
+		case *MessageRequest:
+			v.Tools = tools
+		}
+	}
+}
+
 func WithToolChoice[T MessageRequest](toolType, toolName string) GenericOption[T] {
 	return func(r *T) {
 		switch v := any(r).(type) {
