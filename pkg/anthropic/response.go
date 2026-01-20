@@ -1,5 +1,14 @@
 package anthropic
 
+// StopReason constants for message responses.
+const (
+	StopReasonEndTurn      = "end_turn"
+	StopReasonMaxTokens    = "max_tokens"
+	StopReasonStopSequence = "stop_sequence"
+	StopReasonToolUse      = "tool_use"
+	StopReasonRefusal      = "refusal" // Returned when Claude refuses for safety reasons (structured outputs)
+)
+
 // CompletionResponse is the response from the Anthropic API for a completion request.
 type CompletionResponse struct {
 	Completion string `json:"completion"`

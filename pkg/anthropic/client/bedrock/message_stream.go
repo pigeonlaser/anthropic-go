@@ -44,7 +44,7 @@ func (c *Client) handleMessageStreaming(
 	}
 
 	// Adapt the request to a Bedrock request
-	bedReq := adaptMessageRequest(req)
+	bedReq := c.adaptMessageRequest(req)
 
 	data, err := json.Marshal(bedReq)
 	if err != nil {

@@ -151,3 +151,12 @@ func WithThinking[T any](budgetTokens int) GenericOption[T] {
 		}
 	}
 }
+
+func WithOutputFormat[T MessageRequest](outputFormat *OutputFormat) GenericOption[T] {
+	return func(r *T) {
+		switch v := any(r).(type) {
+		case *MessageRequest:
+			v.OutputFormat = outputFormat
+		}
+	}
+}

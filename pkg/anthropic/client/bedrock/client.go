@@ -42,6 +42,7 @@ const (
 type Client struct {
 	brCli             *bedrockruntime.Client
 	crInferenceRegion string
+	beta              []string
 }
 
 type Config struct {
@@ -50,6 +51,7 @@ type Config struct {
 	SecretAccessKey      string
 	SessionToken         string
 	CrossRegionInference bool
+	Beta                 []string // beta headers (e.g., []string{anthropic.BetaStructuredOutputs})
 }
 
 func MakeClient(ctx context.Context, cfg Config) (*Client, error) {
@@ -93,6 +95,7 @@ func MakeClient(ctx context.Context, cfg Config) (*Client, error) {
 	return &Client{
 		brCli:             bedrockruntime.NewFromConfig(awsCfg),
 		crInferenceRegion: regionPrefix,
+		beta:              cfg.Beta,
 	}, nil
 }
 
@@ -162,15 +165,17 @@ func adaptModelForCompletion(model anthropic.Model) (string, error) {
 // MessageRequest is an override for the default message request to adapt the request for the Bedrock API.
 type MessageRequest struct {
 	anthropic.MessageRequest
-	AnthropicVersion string `json:"anthropic_version"`
-	Model            bool   `json:"model,omitempty"`  // shadow for Model
-	Stream           bool   `json:"stream,omitempty"` // shadow for Stream
+	AnthropicVersion string   `json:"anthropic_version"`
+	AnthropicBeta    []string `json:"anthropic_beta,omitempty"` // Beta headers for features like structured outputs
+	Model            bool     `json:"model,omitempty"`          // shadow for Model
+	Stream           bool     `json:"stream,omitempty"`         // shadow for Stream
 }
 
-func adaptMessageRequest(req *anthropic.MessageRequest) *MessageRequest {
+func (c *Client) adaptMessageRequest(req *anthropic.MessageRequest) *MessageRequest {
 	return &MessageRequest{
 		MessageRequest:   *req,
 		AnthropicVersion: AnthropicVersion,
+		AnthropicBeta:    c.beta,
 	}
 }
 

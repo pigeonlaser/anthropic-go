@@ -1,6 +1,17 @@
 package anthropic
 
-import "github.com/invopop/jsonschema"
+import (
+	"github.com/invopop/jsonschema"
+)
+
+const (
+	MediaTypeJPEG MediaType = "image/jpeg"
+	MediaTypePNG  MediaType = "image/png"
+	MediaTypeGIF  MediaType = "image/gif"
+	MediaTypeWEBP MediaType = "image/webp"
+
+	BetaStructuredOutputs = "structured-outputs-2025-11-13"
+)
 
 // CompletionRequest is the request to the Anthropic API for a completion.
 type CompletionRequest struct {
@@ -77,13 +88,6 @@ func NewTextContentBlock(text string) ContentBlock {
 
 type MediaType string
 
-const (
-	MediaTypeJPEG MediaType = "image/jpeg"
-	MediaTypePNG  MediaType = "image/png"
-	MediaTypeGIF  MediaType = "image/gif"
-	MediaTypeWEBP MediaType = "image/webp"
-)
-
 // NewImageContentBlock creates a new image content block with the given media type and base64 data.
 func NewImageContentBlock(mediaType MediaType, base64Data string) ContentBlock {
 	return ImageContentBlock{
@@ -158,6 +162,7 @@ type MessageRequest struct {
 	ToolChoice        *ToolChoice          `json:"tool_choice,omitempty"`    // optional
 	TopK              int                  `json:"top_k,omitempty"`          // optional
 	TopP              float64              `json:"top_p,omitempty"`          // optional
+	OutputFormat      *OutputFormat        `json:"output_format,omitempty"`  // optional, for structured outputs (requires beta header)
 }
 
 type Thinking struct {
@@ -169,6 +174,13 @@ type Tool struct {
 	Name        string             `json:"name"`
 	Description string             `json:"description"`
 	InputSchema *jsonschema.Schema `json:"input_schema"`
+}
+
+// OutputFormat specifies the output format for structured outputs.
+// Use with the BetaStructuredOutputs beta header.
+type OutputFormat struct {
+	Type   string      `json:"type"`   // "json_schema"
+	Schema interface{} `json:"schema"` // JSON Schema definition
 }
 
 func GenerateInputSchema(input interface{}) *jsonschema.Schema {

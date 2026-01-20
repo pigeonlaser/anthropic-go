@@ -27,7 +27,7 @@ func (c *Client) sendMessageRequest(ctx context.Context, req *anthropic.MessageR
 	}
 
 	// Adapt the request to a Bedrock request
-	bedReq := adaptMessageRequest(req)
+	bedReq := c.adaptMessageRequest(req)
 
 	data, err := json.Marshal(bedReq)
 	if err != nil {
