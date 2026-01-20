@@ -1,9 +1,5 @@
 package anthropic
 
-import (
-	"github.com/invopop/jsonschema"
-)
-
 const (
 	MediaTypeJPEG MediaType = "image/jpeg"
 	MediaTypePNG  MediaType = "image/png"
@@ -171,10 +167,10 @@ type Thinking struct {
 }
 
 type Tool struct {
-	Name        string             `json:"name"`
-	Description string             `json:"description"`
-	InputSchema *jsonschema.Schema `json:"input_schema"`
-	Strict      bool               `json:"strict"` // strict schema validation
+	Name        string      `json:"name"`
+	Description string      `json:"description"`
+	InputSchema interface{} `json:"input_schema"`
+	Strict      bool        `json:"strict"` // strict schema validation
 }
 
 // OutputFormat specifies the output format for structured outputs.
@@ -182,10 +178,6 @@ type Tool struct {
 type OutputFormat struct {
 	Type   string      `json:"type"`   // "json_schema"
 	Schema interface{} `json:"schema"` // JSON Schema definition
-}
-
-func GenerateInputSchema(input interface{}) *jsonschema.Schema {
-	return (&jsonschema.Reflector{ExpandedStruct: true}).Reflect(input)
 }
 
 // CountImageContent counts the number of ImageContentBlock in the MessageRequest.

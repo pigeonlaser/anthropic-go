@@ -8,8 +8,8 @@ import (
 )
 
 type WeatherRequest struct {
-	City string `json:"city" jsonschema:"required,description=city to get the weather for"`
-	Unit string `json:"unit" jsonschema:"enum=celsius,enum=fahrenheit,description=temperature unit to return"`
+	City string `json:"city"`
+	Unit string `json:"unit"`
 }
 
 func main() {
@@ -29,7 +29,6 @@ func main() {
 			{
 				Name:        "get_weather",
 				Description: "Get the weather",
-				InputSchema: anthropic.GenerateInputSchema(&WeatherRequest{}),
 			},
 		},
 		Messages: []anthropic.MessagePartRequest{
