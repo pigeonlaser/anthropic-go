@@ -174,6 +174,7 @@ type Tool struct {
 	Name        string             `json:"name"`
 	Description string             `json:"description"`
 	InputSchema *jsonschema.Schema `json:"input_schema"`
+	Strict      bool               `json:"strict"` // strict schema validation
 }
 
 // OutputFormat specifies the output format for structured outputs.
