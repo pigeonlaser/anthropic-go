@@ -45,10 +45,15 @@ type ContentBlock interface {
 	isContentBlock()
 }
 
+type CacheControl struct {
+	Type string `json:"type"`
+}
+
 // TextContentBlock represents a block of text content.
 type TextContentBlock struct {
-	Type string `json:"type"`
-	Text string `json:"text"`
+	Type         string        `json:"type"`
+	Text         string        `json:"text"`
+	CacheControl *CacheControl `json:"cache_control,omitempty"`
 }
 
 func (t TextContentBlock) isContentBlock() {}
@@ -75,11 +80,19 @@ type MessagePartRequest struct {
 }
 
 // Helper functions to create text and image content blocks easily
-func NewTextContentBlock(text string) ContentBlock {
-	return TextContentBlock{
+func NewTextContentBlock(text string, cacheType string) ContentBlock {
+	tcb := TextContentBlock{
 		Type: "text",
 		Text: text,
 	}
+
+	if cacheType != "" {
+		tcb.CacheControl = &CacheControl{
+			Type: cacheType,
+		}
+	}
+
+	return tcb
 }
 
 type MediaType string
