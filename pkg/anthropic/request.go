@@ -158,7 +158,8 @@ type MessageRequest struct {
 	ToolChoice        *ToolChoice          `json:"tool_choice,omitempty"`    // optional
 	TopK              int                  `json:"top_k,omitempty"`          // optional
 	TopP              float64              `json:"top_p,omitempty"`          // optional
-	OutputFormat      *OutputFormat        `json:"output_format,omitempty"`  // optional, for structured outputs (requires beta header)
+	OutputFormat      *OutputFormat        `json:"output_format,omitempty"`  // optional, for structured outputs (requires beta header) DEPRECATED
+	OutputConfig      *OutputConfig        `json:"output_config,omitempty"`  // optional
 }
 
 type Thinking struct {
@@ -173,8 +174,13 @@ type Tool struct {
 	Strict      bool        `json:"strict"` // strict schema validation
 }
 
+// OutputConfig specifies the output format for structured outputs.
+type OutputConfig struct {
+	Format *OutputFormat `json:"format,omitempty"`
+}
+
+// IMPORTANT: Direct use of OutputFormat in MessageRequest is deprecated. Use OutputConfig.
 // OutputFormat specifies the output format for structured outputs.
-// Use with the BetaStructuredOutputs beta header.
 type OutputFormat struct {
 	Type   string      `json:"type"`   // "json_schema"
 	Schema interface{} `json:"schema"` // JSON Schema definition

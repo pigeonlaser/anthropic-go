@@ -152,11 +152,21 @@ func WithThinking[T any](budgetTokens int) GenericOption[T] {
 	}
 }
 
+// DEPRECATED: Direct use of OutputFormat on the request is deprecated. Use WithOutputConfig
 func WithOutputFormat[T MessageRequest](outputFormat *OutputFormat) GenericOption[T] {
 	return func(r *T) {
 		switch v := any(r).(type) {
 		case *MessageRequest:
 			v.OutputFormat = outputFormat
+		}
+	}
+}
+
+func WithOutputConfig[T MessageRequest](outputCfg *OutputConfig) GenericOption[T] {
+	return func(r *T) {
+		switch v := any(r).(type) {
+		case *MessageRequest:
+			v.OutputConfig = outputCfg
 		}
 	}
 }
