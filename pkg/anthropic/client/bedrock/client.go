@@ -16,6 +16,8 @@ import (
 const (
 	AnthropicVersion = "bedrock-2023-05-31"
 
+	BedrockModelClaudeOpus4_6            = "anthropic.claude-opus-4-6-v1"
+	BedrockModelClaudeSonnet4_6          = "anthropic.claude-sonnet-4-6"
 	BedrockModelClaudeOpus4_5_20251101   = "anthropic.claude-opus-4-5-20251101-v1:0"
 	BedrockModelClaudeSonnet4_5_20250929 = "anthropic.claude-sonnet-4-5-20250929-v1:0"
 	BedrockModelClaudeHaiku4_5_20251001  = "anthropic.claude-haiku-4-5-20251001-v1:0"
@@ -104,6 +106,10 @@ func (c *Client) adaptModelForMessage(model anthropic.Model) (string, error) {
 	adaptedModel := ""
 
 	switch model {
+	case anthropic.ClaudeOpus4_6:
+		adaptedModel = BedrockModelClaudeOpus4_6
+	case anthropic.ClaudeSonnet4_6:
+		adaptedModel = BedrockModelClaudeSonnet4_6
 	case anthropic.ClaudeOpus4_5_20251101:
 		adaptedModel = BedrockModelClaudeOpus4_5_20251101
 	case anthropic.ClaudeSonnet4_5_20250929:
